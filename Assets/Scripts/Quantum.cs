@@ -9,17 +9,21 @@ public class Quantum : MonoBehaviour
     [SerializeField]private float _alpha;
     private float _beta;
     private float _speed;
+
+    private float _angle;
     void Awake()
     {
         _alpha = Random.Range(0f, 1f);
         _beta = 1 - _alpha;
         _speed = 3f;
+        _angle = 0f;
+        Destroy(this.gameObject,5.0f);
     }
     
     void FixedUpdate()
     {
-        transform.Rotate(new Vector3(0f, 1f, 0f) * _speed * Time.deltaTime);
-        transform.position += new Vector3(1f, 0f, 0f) * _speed * Time.deltaTime;
+        //transform.Rotate(new Vector3(0f, 1f, 0f) * _speed * Time.deltaTime);
+        transform.position += new Vector3(1f, _angle, 0f) * _speed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,11 +32,11 @@ public class Quantum : MonoBehaviour
         {
             if (_alpha > 0.5f)
             {
-                transform.Translate(new Vector3(0f, 2f, 0f));
+                _angle = 0.25f;
             }
             else
             {
-                transform.Translate(new Vector3(0f, -2f, 0f));
+                _angle = -0.25f;
             }
         }
     }
