@@ -7,17 +7,17 @@ using Random = UnityEngine.Random;
 public class Quantum : MonoBehaviour
 {
     [SerializeField]private float _alpha;
-    private float _beta;
     private float _speed;
 
     private float _angle;
     void Awake()
     {
         _alpha = Random.Range(0f, 1f);
-        _beta = 1 - _alpha;
         _speed = 3f;
         _angle = 0f;
-        Destroy(this.gameObject,5.0f);
+        Destroy(this.gameObject, 5.0f);
+        PlayerPrefs.SetInt("zero_ket",0);
+        PlayerPrefs.SetInt("one_ket", 0);
     }
     
     void FixedUpdate()
@@ -33,10 +33,14 @@ public class Quantum : MonoBehaviour
             if (_alpha > 0.5f)
             {
                 _angle = 0.25f;
+                int tmp = PlayerPrefs.GetInt("zero_ket");
+                //PlayerPrefs.SetInt("zero_ket",tmp+1);
             }
             else
             {
                 _angle = -0.25f;
+                int tmp = PlayerPrefs.GetInt("one_ket");
+                //PlayerPrefs.SetInt("one_ket",tmp+1);
             }
         }
     }
